@@ -1,6 +1,7 @@
-import { User } from "../entities/user/user.entity";
+import { User } from "@prisma/client";
 
 export abstract class UserRepository {
-    // Example of domain repository file
-    // abstract findById(id: number): Promise<User|null>
+    
+    abstract findById(id: number, selectColumns?: (keyof User)[]): Promise<Partial<User>|null>
+    abstract findAllByIds(ids: number[], selectColumns?: (keyof User)[]): Promise<Partial<User>[]>
 }

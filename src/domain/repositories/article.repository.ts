@@ -2,7 +2,7 @@ import { CreateArticleInputDto } from "src/shared/dtos/article/create-article-in
 import { Article } from "../entities/article/article.entity";
 
 export abstract class ArticleRepository {
-    abstract findAll(): Promise<Article[]>
-    abstract findById(id: number): Promise<Article|null>
+    abstract findAll(): Promise<Partial<Article>[]>
+    abstract findById(id: number): Promise<Partial<Article>|null>
     abstract create(dto: CreateArticleInputDto): Promise<Article>
 }

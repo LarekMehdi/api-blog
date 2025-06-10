@@ -22,6 +22,11 @@ import { CommentaryPrismaAdapter } from './infrastructure/repositories/prisma/co
 import { AuthController } from './controllers/auth/auth.controller';
 import { ArticleController } from './controllers/article/article.controller';
 import { CommentaryController } from './controllers/commentary/commentary.controller';
+import { FindAllCommentaryByArticleIdUseCase } from './application/use-cases/commentary/find-all-commentary-by-article-id.usecase';
+import { DeleteCommentaryUseCase } from './application/use-cases/commentary/delete-commentary.usecase';
+import { FindArticleByIdUseCase } from './application/use-cases/article/find-by-id.usecase';
+import { FindAllUserByIdsUseCase } from './application/use-cases/user/find-all-by-ids.usecase';
+import { FindUserByIdUseCase } from './application/use-cases/user/find-by-id.usecase';
 
 
 @Module({
@@ -39,10 +44,16 @@ import { CommentaryController } from './controllers/commentary/commentary.contro
   providers: [
     // Use cases (Application layer)
     AuthSignupUseCase,
+    FindAllUserByIdsUseCase,
+    FindUserByIdUseCase,
     CreateArticleUseCase,
     FindAllArticleUseCase,
+    FindArticleByIdUseCase,
     CreateCommentaryUseCase,
     FindAllCommentaryUseCase,
+    FindAllCommentaryByArticleIdUseCase,
+    DeleteCommentaryUseCase,
+
 
     // Concrete implementations (Infrastructure layer)
     UserPrismaAdapter,

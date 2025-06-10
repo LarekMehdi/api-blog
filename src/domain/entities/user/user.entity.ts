@@ -1,3 +1,6 @@
 export interface User {
-    // Example of entity file
+    id: number;
+    firstname: string;
+    lastname: string;
+    email: string | null;
 }

@@ -5,6 +5,7 @@ import { Article as DomainArticle } from "src/domain/entities/article/article.en
 import { Article as PrismaArticle } from "@prisma/client";
 import { ArticleMapper } from "src/shared/mappers/article.mapper";
 import { CreateArticleInputDto } from "src/shared/dtos/article/create-article-input.dto";
+import { UtilEntity } from "src/utils/entity.util";
 
 
 @Injectable()
@@ -15,8 +16,11 @@ export class ArticlePrismaAdapter implements ArticleRepository {
 
     /** FIND */
 
-    async findById(id: number): Promise<DomainArticle | null> {
+    async findById(id: number, selectColumns?: (keyof PrismaArticle)[]): Promise<DomainArticle | null> {
+        const select: Record<keyof PrismaArticle, boolean>|undefined = UtilEntity.getSelectColumns<PrismaArticle>(selectColumns);
+
         const article: PrismaArticle | null=  await this.prismaService.article.findUnique({
+            select: select || undefined,
             where: {
                 id
             }
@@ -26,8 +30,12 @@ export class ArticlePrismaAdapter implements ArticleRepository {
 
     /** FIND ALL */
 
-    async findAll(): Promise<DomainArticle[]> {
-        return await this.prismaService.article.findMany();
+    async findAll(selectColumns?: (keyof PrismaArticle)[]): Promise<DomainArticle[]> {
+        const select: Record<keyof PrismaArticle, boolean>|undefined = UtilEntity.getSelectColumns<PrismaArticle>(selectColumns);
+
+        return await this.prismaService.article.findMany({
+            select: select || undefined
+        });
     }
 
     /** CREATE */
