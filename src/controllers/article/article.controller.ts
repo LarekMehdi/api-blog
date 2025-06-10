@@ -1,4 +1,4 @@
-import { Controller, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
 import { CreateArticleUseCase } from "src/application/use-cases/article/create-article.usecase";
 import { FindAllArticleUseCase } from "src/application/use-cases/article/find-all-article.usecase";
 import { FindArticleByIdUseCase } from "src/application/use-cases/article/find-by-id.usecase";
@@ -14,8 +14,8 @@ export class ArticleController {
     
     /** CREATE */
 
-    @Post('create')
-    async create(dto: CreateArticleInputDto) {
+    @Post()
+    async create(@Body() dto: CreateArticleInputDto) {
         return await this.createArticleUC.execute(dto);
     }
 

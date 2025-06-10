@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from "@nestjs/common";
 import { CreateCommentaryUseCase } from "src/application/use-cases/commentary/create-commentary.usecase";
 import { DeleteCommentaryUseCase } from "src/application/use-cases/commentary/delete-commentary.usecase";
 import { FindAllCommentaryUseCase } from "src/application/use-cases/commentary/find-all-comentary.usecase";
@@ -16,8 +16,8 @@ export class CommentaryController {
     
     /** CREATE */
 
-    @Post('create')
-    async create(dto: CreateCommentaryInputDto) {
+    @Post()
+    async create(@Body() dto: CreateCommentaryInputDto) {
         return await this.createCommentaryUC.execute(dto);
     }
 
