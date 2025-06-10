@@ -21,9 +21,32 @@ datasource db {
 //   name  String
 //   email String @unique
 // }
-
-model Article {
-  id      Int    @id @default(autoincrement())
-  title   String
-  content String @unique
+model User {
+  id        Int  @id @default(autoincrement())
+  firstname String
+  lastname  String
+  password  String?  
+  email     String? @unique()
+  articles  Article[]
 }
+model Article {
+  id          Int    @id @default(autoincrement())
+  title       String
+  content     String @unique
+  createdAt   DateTime @default(now()) @db.DateTime(0)
+  updatedAt   DateTime? @db.DateTime(0)
+  authorId    Int
+  author      User @relation(fields: [authorId], references: [id])
+  commentaries  Commentary[]
+}
+
+model Commentary {
+  id          Int    @id @default(autoincrement())
+  title       String
+  content     String @unique
+  createdAt   DateTime @default(now()) @db.DateTime(0)
+  updatedAt   DateTime? @db.DateTime(0)
+  articleId   Int
+  articles    Article  @relation(fields: [articleId], references: [id])
+}
+
