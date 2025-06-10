@@ -17,13 +17,15 @@ export class FindArticleByIdUseCase {
 
     async execute(id: number): Promise<ArticleOutputDto> {
         const article: Partial<Article>|null = await this.articleRepository.findById(id);
-        if (!article || !article.authorId) throw new NotFoundException(`No article found with id ${id}`);
+        if (!article) throw new NotFoundException(`No article found with id ${id}`);
 
         const commentaries: Partial<Commentary>[] = await this.commentaryRepository.findAllByArticleId(id);
 
-        const articleAuthorId: number = article.authorId;
-        const articleAuthor: Partial<User>|null = await this.userRepository.findById(articleAuthorId, ['id', 'firstname', 'lastname']);
-        if (!articleAuthor) throw new NotFoundException(`No author found for article ${id} [userId: ${articleAuthorId}]`);
+        const articleAuthorId: number|undefined = article?.authorId;
+        let articleAuthor: Partial<User>|null = null;
+        if (articleAuthorId) articleAuthor = await this.userRepository.findById(articleAuthorId, ['id', 'firstname', 'lastname']);
+       
+        //if (!articleAuthor) throw new NotFoundException(`No author found for article ${id} [userId: ${articleAuthorId}]`);
 
         const commentaryAuthorIds: number[] = commentaries.map((c) => c.authorId as number);
         const commentaryAuthors: Partial<User>[] = await this.userRepository.findAllByIds(commentaryAuthorIds, ['id', 'firstname', 'lastname']);

@@ -15,7 +15,7 @@ export abstract class ArticleMapper {
         };
     }
 
-    static toArticleOutput(article: Partial<Article>, commentaries: Partial<Commentary>[], author: Partial<User>, commentaryAuthors: Partial<User>[]): ArticleOutputDto {
+    static toArticleOutput(article: Partial<Article>, commentaries: Partial<Commentary>[], author: Partial<User>|null, commentaryAuthors: Partial<User>[]): ArticleOutputDto {
         const dto: ArticleOutputDto = {
             id: article.id!,
             title: article.title!,

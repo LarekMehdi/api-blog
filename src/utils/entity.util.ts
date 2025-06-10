@@ -2,7 +2,7 @@ import { User } from "src/domain/entities/user/user.entity";
 
 export abstract class UtilEntity {
 
-    static getAuthorDisplay(author: Partial<User>|undefined): string {
+    static getAuthorDisplay(author: Partial<User>|undefined|null): string {
         if (!author) return '';
         return `${author.firstname} ${author.lastname}`
     }

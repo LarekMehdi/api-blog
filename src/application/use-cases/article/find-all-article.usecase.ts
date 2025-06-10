@@ -7,6 +7,7 @@ export class FindAllArticleUseCase {
     constructor(private readonly articleRepository: ArticleRepository) {}
     
     async execute() {
+        // todo: author
         return await this.articleRepository.findAll();
     }
 }

@@ -4,6 +4,7 @@ import { PrismaService } from "../.config/prisma.service";
 import { User as PrismaUser} from "@prisma/client";
 import { User as DomainUser} from "src/domain/entities/user/user.entity";
 import { UtilEntity } from "src/utils/entity.util";
+import { SignupInputDto } from "src/shared/dtos/auth/signup-input.dto";
 
 @Injectable()
 export class UserPrismaAdapter implements UserRepository {
@@ -35,6 +36,14 @@ export class UserPrismaAdapter implements UserRepository {
                     in: ids
                 }
             }
+        });
+    }
+
+    /** CREATE */
+
+    async signup(data: SignupInputDto): Promise<PrismaUser> {
+        return await this.prismaService.user.create({
+            data
         });
     }
 }
