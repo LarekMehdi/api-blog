@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { UserRepository } from "src/domain/repositories/user.repository";
 import { PrismaService } from "../.config/prisma.service";
 import { ArticleRepository } from "src/domain/repositories/article.repository";
 import { Article as DomainArticle } from "src/domain/entities/article/article.entity";
 import { Article as PrismaArticle } from "@prisma/client";
 import { ArticleMapper } from "src/shared/mappers/article.mapper";
+import { CreateArticleInputDto } from "src/shared/dtos/article/create-article-input.dto";
 
 
 @Injectable()
@@ -26,13 +26,15 @@ export class ArticlePrismaAdapter implements ArticleRepository {
 
     /** FIND ALL */
 
-    findAll(): Promise<DomainArticle[]> {
-        throw new Error("Method not implemented.");
+    async findAll(): Promise<DomainArticle[]> {
+        return await this.prismaService.article.findMany();
     }
 
     /** CREATE */
 
-    create(): Promise<DomainArticle> {
-        throw new Error("Method not implemented.");
+    async create(data: CreateArticleInputDto): Promise<DomainArticle> {
+        return await this.prismaService.article.create({
+            data 
+        });
     }
 }

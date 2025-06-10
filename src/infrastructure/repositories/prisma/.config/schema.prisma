@@ -28,6 +28,7 @@ model User {
   password  String?  
   email     String? @unique()
   articles  Article[]
+  commentaries Commentary[]
 }
 model Article {
   id          Int    @id @default(autoincrement())
@@ -47,6 +48,9 @@ model Commentary {
   createdAt   DateTime @default(now()) @db.DateTime(0)
   updatedAt   DateTime? @db.DateTime(0)
   articleId   Int
+  authorId    Int
   articles    Article  @relation(fields: [articleId], references: [id])
+  author      User @relation(fields: [authorId], references: [id])
+
 }
 
