@@ -23,13 +23,12 @@ export class ArticleController {
     
     @Get()
     async findAll() {
-        console.log('ici');
         return await this.findAllUC.execute();
     }
 
     /** FIND */
 
-    @Get('id')
+    @Get(':id')
     async findById(@Param('id', ParseIntPipe) id: number) {
         return await this.findByIdUC.execute(id);
     }
