@@ -8,6 +8,8 @@ export class FindAllArticleUseCase {
     
     async execute() {
         // todo: author
-        return await this.articleRepository.findAll();
+        const result =  await this.articleRepository.findAll();
+        console.log(result);
+        return result;
     }
 }

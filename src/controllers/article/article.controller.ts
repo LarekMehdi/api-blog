@@ -23,6 +23,7 @@ export class ArticleController {
     
     @Get()
     async findAll() {
+        console.log('ici');
         return await this.findAllUC.execute();
     }
 
