@@ -32,7 +32,7 @@ export class CommentaryController {
 
     @Get(':articleId')
     async findAllByArticleId(@Param('articleId', ParseIntPipe) articleId: number) {
-        return await this.findAllByArticleId(articleId);
+        return await this.findAllByArticleIdUC.execute(articleId);
     }
 
     /** DELETE */
