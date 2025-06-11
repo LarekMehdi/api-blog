@@ -3,9 +3,9 @@ import { PrismaService } from "../.config/prisma.service";
 import { Commentary as PrismaCommentary } from "@prisma/client";
 import { Commentary as DomainCommentary} from "src/domain/entities/commentary/commentary.entity";
 import { CommentaryMapper } from "src/shared/mappers/commentary.mapper";
-import { CreateCommentaryInputDto } from "src/shared/dtos/commentary/create-commentary-input.dto";
 import { CommentaryRepository } from "src/domain/repositories/commentary.repository";
 import { UtilEntity } from "src/utils/entity.util";
+import { CreateCommentaryDto } from "src/shared/dtos/commentary/create-commentary.dto";
 
 
 @Injectable()
@@ -50,7 +50,7 @@ export class CommentaryPrismaAdapter implements CommentaryRepository {
 
     /** CREATE */
 
-    async create(data: CreateCommentaryInputDto): Promise<DomainCommentary> {
+    async create(data: CreateCommentaryDto): Promise<DomainCommentary> {
         return await this.prismaService.commentary.create({
             data 
         });

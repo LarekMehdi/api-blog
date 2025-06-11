@@ -8,18 +8,12 @@ import { CreateCommentaryInputDto } from "src/shared/dtos/commentary/create-comm
 @Controller('commentary')
 export class CommentaryController {
 
-    constructor(private readonly createCommentaryUC: CreateCommentaryUseCase,
+    constructor(
                 private readonly findAllCommentaryUC: FindAllCommentaryUseCase,
                 private readonly findAllByArticleIdUC: FindAllCommentaryByArticleIdUseCase,
                 private readonly deleteUC: DeleteCommentaryUseCase,
     ) {}
-    
-    /** CREATE */
 
-    @Post()
-    async create(@Body() dto: CreateCommentaryInputDto) {
-        return await this.createCommentaryUC.execute(dto);
-    }
 
     /** FIND ALL */
     

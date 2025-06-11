@@ -5,6 +5,7 @@ import { User as PrismaUser} from "@prisma/client";
 import { User as DomainUser} from "src/domain/entities/user/user.entity";
 import { UtilEntity } from "src/utils/entity.util";
 import { SignupInputDto } from "src/shared/dtos/auth/signup-input.dto";
+import { UserFullnameInputDto } from "src/shared/dtos/user/user-fullname-input.dto";
 
 @Injectable()
 export class UserPrismaAdapter implements UserRepository {
@@ -20,6 +21,20 @@ export class UserPrismaAdapter implements UserRepository {
             select: select || undefined,
             where: {
                 id
+            }
+        });
+    }
+
+    async findByFullname(dto: UserFullnameInputDto, selectColumns?: (keyof PrismaUser)[]): Promise<Partial<DomainUser> | null> {
+        const select: Record<keyof PrismaUser, boolean>|undefined = UtilEntity.getSelectColumns<PrismaUser>(selectColumns);
+        
+        return await this.prismaService.user.findFirst({
+            select: select || undefined,
+            where: {
+                AND: {
+                    firstname: dto.firstname,
+                    lastname: dto.lastname
+                }
             }
         });
     }
